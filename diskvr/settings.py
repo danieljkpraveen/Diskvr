@@ -18,7 +18,8 @@ SECRET_KEY = 'django-insecure-dq%489eg8=-$hwyycimpn98(9s93mju2gq$(qtfxf!j^lf5fes
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = []
+
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'diskvr.pythonanywhere.com',]
 ALLOWED_HOSTS = ['diskvr.pythonanywhere.com',]
 
 

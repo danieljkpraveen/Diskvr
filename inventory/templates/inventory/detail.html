@@ -34,7 +34,8 @@
 
         {% else %}
             
-            <a href="https://api.whatsapp.com/send?phone=6360352004" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-gray-500">Contact Seller</a>
+            <!-- <a href="https://api.whatsapp.com/send?phone=6360352004" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-gray-500">Contact Seller</a> -->
+            <a href="https://api.whatsapp.com/send?phone=6360352004" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-gray-500 {% if not request.user.is_authenticated %}opacity-50 cursor-not-allowed{% endif %}">Contact Seller</a>
             
         {% endif %}
 
