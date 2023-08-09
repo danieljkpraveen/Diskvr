@@ -95,3 +95,8 @@ def edit(request, pk):
             'title': 'Edit Item',
         }
     )
+
+
+@login_required
+def orders(request):
+    return render(request, 'inventory/orders.html')
