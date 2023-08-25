@@ -19,9 +19,9 @@
     }
   </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-200">
 
-  <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+  <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-300 bg-white">
     <a href="/" class="text-xl font-semibold hover:text-blue-500">Diskvr</a>
     <div class="space-x-6 md:hidden">
       <button id="mobileMenuButton" class="text-lg font-semibold">
@@ -67,6 +67,49 @@
     document.getElementById('mobileMenuButton').addEventListener('click', function() {
       document.querySelector('.nav-links').classList.toggle('active');
     });
+
+    // whatsapp contact link
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const contactButton = document.getElementById('contact-seller');
+    //     const encodedPhoneNumber = contactButton.getAttribute('data-phone');
+    //     const phoneNumber = atob(encodedPhoneNumber); // Decode the encoded phone number
+    //     const baseLink = 'https://api.whatsapp.com/send?phone=';
+
+    //     contactButton.addEventListener('click', function() {
+    //         if (phoneNumber) {
+    //             window.location.href = baseLink + phoneNumber;
+    //         }
+    //     });
+    // });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const contactButton = document.getElementById('contact-seller');
+    const encodedPhoneNumber = contactButton.getAttribute('data-phone');
+    const phoneNumber = atob(encodedPhoneNumber); // Decode the encoded phone number
+    const baseLink = 'https://api.whatsapp.com/send?phone=';
+
+    contactButton.addEventListener('click', function() {
+        if (phoneNumber) {
+            const itemName = contactButton.getAttribute('data-item-name');
+            const itemDescription = contactButton.getAttribute('data-item-description');
+            const itemMeters = contactButton.getAttribute('data-item-meters');
+            const itemInches = contactButton.getAttribute('data-item-inches');
+            
+            const currentPageUrl = window.location.href;
+            
+            // const message = `Hi, I'm interested in the ${itemName}. Item Description: ${itemDescription} Meters: ${itemMeters} Inches: ${itemInches} Page URL: ${currentPageUrl}`;
+            const message = `Hi, I'm interested in ${itemName}.\n\n` +
+                                `Description: ${itemDescription}\n\n` +
+                                `Meters: ${itemMeters}\n\n` +
+                                `Inches: ${itemInches}\n\n` +
+                                `Page URL: ${currentPageUrl}`;
+
+            const whatsappLink = baseLink + phoneNumber + '&text=' + encodeURIComponent(message);
+            window.open(whatsappLink, '_blank');
+        }
+    });
+});
+
   </script>
 
 </body>

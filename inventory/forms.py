@@ -1,15 +1,15 @@
 from django import forms
-from .models import Inventory
+from .models import NeonLights
 
 
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
 
 class NewItemForm(forms.ModelForm):
     class Meta:
-        model = Inventory
-        fields = ('category', 'name', 'description','price', 'image',)    
+        model = NeonLights
+        fields = ('image', 'name', 'description','meters', 'inches', 'ip_rating',)    
         widgets = {
-            'category': forms.Select(attrs={
+            'image': forms.FileInput(attrs={
                 'class': INPUT_CLASSES
             }),
             'name': forms.TextInput(attrs={
@@ -18,10 +18,13 @@ class NewItemForm(forms.ModelForm):
             'description': forms.Textarea(attrs={
                 'class': INPUT_CLASSES
             }),
-            'price': forms.TextInput(attrs={
+            'meters': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
             }),
-            'image': forms.FileInput(attrs={
+            'inches': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'ip_rating': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
             }),
         }
@@ -29,19 +32,25 @@ class NewItemForm(forms.ModelForm):
 
 class EditItemForm(forms.ModelForm):
     class Meta:
-        model = Inventory
-        fields = ('name', 'description','price', 'image',)    
+        model = NeonLights
+        fields = ('image', 'name', 'description','meters', 'inches', 'ip_rating',)    
         widgets = {
+            'image': forms.FileInput(attrs={
+                'class': INPUT_CLASSES
+            }),
             'name': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
             }),
             'description': forms.Textarea(attrs={
                 'class': INPUT_CLASSES
             }),
-            'price': forms.TextInput(attrs={
+            'meters': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
             }),
-            'image': forms.FileInput(attrs={
+            'inches': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'ip_rating': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
             }),
         }

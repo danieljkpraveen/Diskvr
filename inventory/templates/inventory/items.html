@@ -1,41 +1,22 @@
+<!-- Search Items page -->
+
 {% extends 'core/base.html' %}
 
 {% block title %}Items{% endblock %}
 
 {% block content %}
 
-<div class="pb-6 bg-gray-100">
+<div class="p-6 bg-gray-100">
 
     <form action="{% url 'inventory:items' %}" method="get" class="mb-4 px-4">
 
         <input name="query" class="w-full py-2 px-3 border rounded" type="text" value="{{ query }}" placeholder="Search lights, services, etc!">
-        <button class="mt-2 py-2 px-3 text-base bg-teal-500 text-white rounded">Search</button>
+        <button class="mt-2 py-2 px-3 text-base bg-blue-600 text-white rounded">Search</button>
+        <a href="{% url 'inventory:items' %}" class="mt-2 p-2 inline-block bg-yellow-500 text-base rounded text-white">Clear</a>
 
     </form>
 
     <hr class="my-2 mx-4">
-
-    <p class="font-semibold px-4">Categories</p>
-
-    <ul class="px-4">
-
-        {% for category in categories %}
-
-            <li class="py-2 {% if category.id == category_id %} bg-gray-200 {% endif %}">
-                <a href="{% url 'inventory:items' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a>
-            </li>
-
-        {% endfor %}
-
-    </ul>
-
-    <hr class="my-2 mx-4">
-
-    <p class="font-semibold px-4">Clear Filters</p>
-
-    <ul class="px-4">
-        <li><a href="{% url 'inventory:items' %}" class="mt-2 p-2 inline-block bg-yellow-500 text-base rounded text-white">Clear</a></li>
-    </ul>
 
 </div>
 

@@ -2,37 +2,23 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=255)
-
-    class Meta:
-        ordering = ('name',)
-        verbose_name_plural = 'Categories'
-
-    def __str__(self):
-        return self.name
-
-
-class Inventory(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    category = models.ForeignKey(
-        Category,
-        related_name='inventory_items',
-        on_delete=models.CASCADE
-    )
-    price = models.FloatField()
+class NeonLights(models.Model):
     image = models.ImageField(upload_to='inventory_images', blank=True, null=True)
+    name = models.CharField(max_length=255)
+    meters = models.FloatField()
+    inches = models.CharField(max_length=255)
+    ip_rating = models.CharField(max_length=150, blank=True, null=True)
+    description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
         User,
-        related_name='inventory_items',
+        related_name='neon_lights',
         on_delete=models.CASCADE
     )
 
     class Meta:
         ordering = ('name',)
-        verbose_name_plural = 'Inventory'
-
+        verbose_name_plural = 'Neon Lights'
+    
     def __str__(self):
         return self.name
