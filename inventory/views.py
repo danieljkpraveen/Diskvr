@@ -10,7 +10,7 @@ def detail(request, pk):
     # this view is for the details page
 
     item = get_object_or_404(NeonLights, pk=pk)
-    related_items = NeonLights.objects.exclude(pk=pk).order_by('?')[:4]
+    related_items = NeonLights.objects.exclude(pk=pk).order_by('?')[:6]
     return render(
         request,
         'inventory/detail.html',
