@@ -7,4 +7,3 @@ Pillow==10.0.1
 platformdirs==3.10.0
 sqlparse==0.4.4
 tzdata==2023.3
-virtualenv==20.24.3
