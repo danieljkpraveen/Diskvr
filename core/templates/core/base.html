@@ -34,11 +34,7 @@
     <div class="space-x-6 hidden md:flex nav-links">
       <a href="{% url 'inventory:items' %}" class="text-lg font-semibold hover:text-blue-500">Search items</a>
       {% if request.user.is_authenticated %}
-        {% if request.user.is_superuser %}
-          <a href="{% url 'inventory:new' %}" class="text-lg font-semibold hover:text-blue-500">New item</a>
-        {% else %}
-          <a href="{% url 'inventory:orders' %}" class="text-lg font-semibold hover:text-blue-500">Orders</a>
-        {% endif %}
+        <a href="{% url 'inventory:orders' %}" class="text-lg font-semibold hover:text-blue-500">Orders</a>
         <a href="{% url 'core:logout' %}" class="text-lg font-semibold hover:text-blue-500">Log out</a>
       {% else %}
         <a href="{% url 'core:signup' %}" class="text-lg font-semibold hover:text-blue-500">Sign up</a>
@@ -67,20 +63,6 @@
     document.getElementById('mobileMenuButton').addEventListener('click', function() {
       document.querySelector('.nav-links').classList.toggle('active');
     });
-
-    // whatsapp contact link
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const contactButton = document.getElementById('contact-seller');
-    //     const encodedPhoneNumber = contactButton.getAttribute('data-phone');
-    //     const phoneNumber = atob(encodedPhoneNumber); // Decode the encoded phone number
-    //     const baseLink = 'https://api.whatsapp.com/send?phone=';
-
-    //     contactButton.addEventListener('click', function() {
-    //         if (phoneNumber) {
-    //             window.location.href = baseLink + phoneNumber;
-    //         }
-    //     });
-    // });
 
     document.addEventListener('DOMContentLoaded', function() {
     const contactButton = document.getElementById('contact-seller');
