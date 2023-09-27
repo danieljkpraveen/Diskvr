@@ -2,13 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-from .models import Inventory, Category
+from .models import NeonLights
 from .forms import EditItemForm, NewItemForm
 
 
 def detail(request, pk):
-    item = get_object_or_404(Inventory, pk=pk)
-    related_items = Inventory.objects.filter(category=item.category).exclude(pk=pk)[0:3]
+    # this view is for the details page
+
+    item = get_object_or_404(NeonLights, pk=pk)
+    related_items = NeonLights.objects.exclude(pk=pk).order_by('?')[:6]
     return render(
         request,
         'inventory/detail.html',
@@ -20,13 +22,10 @@ def detail(request, pk):
 
 
 def items(request):
-    query = request.GET.get('query', '')
-    category_id = int(request.GET.get('category', 0))
-    categories = Category.objects.all()
-    items = Inventory.objects.all()
+    # this view is for search items
 
-    if category_id:
-        items = items.filter(category_id=category_id)
+    query = request.GET.get('query', '')
+    items = NeonLights.objects.all()
 
     if query:
         items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
@@ -37,14 +36,14 @@ def items(request):
         {
             'items': items,
             'query': query,
-            'categories': categories,
-            'category_id': category_id,
         }
     )
 
 
 @login_required
 def new(request):
+    # this view is to create new item
+
     if request.method == 'POST':
         form = NewItemForm(request.POST, request.FILES)
         
@@ -69,14 +68,18 @@ def new(request):
 
 @login_required
 def delete(request, pk):
-    item = get_object_or_404(Inventory, pk=pk, created_by=request.user)
+    # this view is to delete item
+
+    item = get_object_or_404(NeonLights, pk=pk, created_by=request.user)
     item.delete()
     return redirect('/')
 
 
 @login_required
 def edit(request, pk):
-    item = get_object_or_404(Inventory, pk=pk, created_by=request.user)
+    # this view is to edit item
+
+    item = get_object_or_404(NeonLights, pk=pk, created_by=request.user)
     if request.method == 'POST':
         form = EditItemForm(request.POST, request.FILES, instance=item)
         
@@ -99,4 +102,6 @@ def edit(request, pk):
 
 @login_required
 def orders(request):
+    # this view is to track orders made by customers
+
     return render(request, 'inventory/orders.html')

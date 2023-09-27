@@ -1,24 +1,26 @@
 from django.shortcuts import render, redirect
 
-from inventory.models import Category, Inventory
-from .forms import SignUpForm, LoginForm
+from inventory.models import NeonLights
+from .forms import SignUpForm
 
 
 
 def index(request):
-    items = Inventory.objects.all()  # [0:10]
-    categories = Category.objects.all()
+    # this view renders the index page
+
+    items = NeonLights.objects.all()[0:15]
     return render(
         request,
         "core/index.html",
         {
-            'categories': categories,
             'items': items,
         }
     )
 
 
 def signup(request):
+    # this view renders the sign up page
+
     errors = None
     if request.method == 'POST':
         form = SignUpForm(request.POST)
