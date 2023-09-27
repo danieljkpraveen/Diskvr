@@ -1,8 +1,9 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class NeonLights(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     image = models.ImageField(upload_to='inventory_images', blank=True, null=True)
     name = models.CharField(max_length=255)
     inches = models.CharField(max_length=255)
