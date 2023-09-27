@@ -4,19 +4,25 @@
 
 {% block content %}
     <div class="mt-6 px-3 py-6 bg-gray-200 rounded-xl">
-        
 
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+        {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser %}
+                <div class="text-center mb-4">
+                    <a href="{% url 'inventory:new' %}" class="text-lg font-semibold px-6 py-3 bg-white rounded-full inline-block">New item</a>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {% for item in items %}
-            <div class="shadow-md bg-white p-2 rounded-xl">
+            <div class="shadow-md bg-white p-4 rounded-xl">
                 <a href="{% url 'inventory:detail' item.id %}">
                     <div class="w-full h-48 sm:h-64">
                         <img src="{{ item.image.url }}" class="w-full h-full object-cover rounded-t-xl">
                     </div>
 
-                    <div class="p-3 sm:p-4 bg-white rounded-b-xl">
+                    <div class="p-4 bg-white rounded-b-xl">
                         <h2 class="text-xl sm:text-xl">{{ item.name }}</h2>
-                        <!-- <p class="text-gray-500">Price: {{ item.price }}</p> -->
                     </div>
                 </a>
             </div>
@@ -24,21 +30,27 @@
         </div>
     </div>
 
-    <!-- <div class="mt-6 px-3 py-6 bg-gray-100 rounded-xl">
-        
-        <h2 class="mb-6 text-xl text-center">Categories</h2>
+    <!-- Mobile Styles -->
+    <style>
+        @media (max-width: 640px) {
+            .grid-cols-1 {
+                grid-template-columns: 1fr; /* For a single column on mobile */
+            }
 
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            {% for category in categories %}
-            <div>
-                <a href="#">
-                    <div class="p-3 sm:p-4 bg-white rounded-b-xl">
-                        <h2 class="text-xl sm:text-2xl">{{ category.name }}</h2>
-                        <p class="text-gray-500">{{ category.items.count }} items</p>
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
-        </div>
-    </div> -->
+            /* Center the "New item" link on mobile */
+            .text-center {
+                text-align: center;
+            }
+
+            /* Increase padding for mobile */
+            .p-4 {
+                padding: 1.5rem; /* Increased padding */
+            }
+
+            /* Adjust font size for mobile */
+            .text-lg {
+                font-size: 1.125rem;
+            }
+        }
+    </style>
 {% endblock %}
