@@ -22,6 +22,16 @@
         </div>
 
         <div class="mb-4">
+            <label class="block mb-2">Phone number</label>
+            {{ form.phone_number }}
+            {% if errors.phone_number %}
+                <div class="mt-1 text-red-600">
+                    {{ errors.phone_number }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-4">
             <label class="block mb-2">Email</label>
             {{ form.email }}
             {% if errors.email %}

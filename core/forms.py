@@ -1,13 +1,21 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from .models import UserProfile
 
 
 class SignUpForm(UserCreationForm):
+    # phone_number = forms.CharField(max_length=10)
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2',)
+        fields = ('username', 'email', 'phone_number', 'password1', 'password2',)
     
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.save()
+        UserProfile.objects.create(user=user, phone_number=self.cleaned_data['phone_number'])
+        return user
+
     username = forms.CharField(
         widget=forms.TextInput(
             attrs= {
@@ -16,6 +24,16 @@ class SignUpForm(UserCreationForm):
             }
         )
     )
+
+    phone_number = forms.CharField(
+        widget=forms.TextInput(
+            attrs= {
+                'placeholder': 'Enter phone number',
+                'class': 'w-full py-4 px-6 rounded-xl',
+            }
+        )
+    )
+
     email = forms.CharField(
         widget=forms.EmailInput(
             attrs= {
