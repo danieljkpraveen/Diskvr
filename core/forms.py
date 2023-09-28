@@ -95,7 +95,7 @@ class CustomSetPasswordForm(SetPasswordForm):
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'Enter new password',
-                'class': 'w-full py-4 px-6 rounded-xl',
+                'class': 'w-full py-4 px-6 text-black rounded-xl',
             }
         )
     )
@@ -103,7 +103,7 @@ class CustomSetPasswordForm(SetPasswordForm):
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'Confirm new password',
-                'class': 'w-full py-4 px-6 rounded-xl',
+                'class': 'w-full py-4 px-6 text-black rounded-xl',
             }
         )
     )
