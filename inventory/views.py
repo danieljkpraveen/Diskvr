@@ -106,6 +106,17 @@ def order(request, pk):
 
     if request.method == 'POST':
         print(pk)
-        return render(request, 'inventory/orders.html')
+        return render(request, 'inventory/order.html')
     else:
-        return render(request, 'inventory/orders.html')
+        return render(request, 'inventory/order.html')
+
+
+@login_required
+def order_list(request):
+    # this view is to track orders made by customers
+
+    if request.method == 'POST':
+        print(request.user)
+        return render(request, 'inventory/orders_list.html')
+    else:
+        return render(request, 'inventory/orders_list.html')
