@@ -4,55 +4,58 @@
 
 {% block content %}
 
-<div class="grid grid-cols-1 gap-6 shadow-md bg-white sm:grid-cols-5 rounded-xl">
+<div class="grid grid-cols-1 gap-6 shadow-md bg-gray-900 sm:grid-cols-5 rounded-xl">
 
     <!-- Image and Details on the Left -->
     <div class="col-span-1 sm:col-span-3">
-        <div class="flex flex-col items-center"> <!-- Center-align the image and stack items vertically -->
+        <div class="flex flex-col p-2"> <!-- Center-align the image and stack items vertically -->
             <div class="p-6 rounded-xl">
                 <img src="{{ item.image.url }}" class="rounded-xl" width="500" height="500"> <!-- Set a fixed size here -->
             </div>
-            <div class="p-3 rounded-xl">
-                <h1 class="mb-6 text-2xl p-2 border-b border-gray-300">{{ item.name }}</h1>
+            <div class="p-3 bg-gray-800 rounded-xl">
+                <h1 class="mb-6 text-2xl p-2 border-b text-blue-400 border-gray-300">{{ item.name }}</h1>
 
                 {% if item.description %}
-                    <h2 class="text-xl px-2">Description</h2>
-                    <p class="text-gray-500 p-2 border-b border-gray-300">
+                    <h2 class="text-xl text-blue-400 px-2">Description</h2>
+                    <p class="p-2 border-b text-white border-gray-300">
                         {{ item.description }}
                     </p>
                 {% endif %}
 
-                <h2 class="text-xl p-2">General</h2>
-                <p class="text-gray-500 px-2"><strong>LED lights used: </strong>{{ item.led_lights_used }}</p>
-                <p class="text-gray-500 px-2"><strong>Inches: </strong>{{ item.inches }}</p>
-                <p class="text-gray-500 px-2"><strong>Sheet mm: </strong>{{ item.sheet_mm }}</p>
-                <p class="text-gray-500 px-2"><strong>IP rating: </strong>{{ item.ip_rating }}</p>
+                <h2 class="text-xl text-blue-400 p-2">General</h2>
+                <p class="text-white px-2"><strong>LED lights used: </strong>{{ item.led_lights_used }}</p>
+                <p class="text-white px-2"><strong>Inches: </strong>{{ item.inches }}</p>
+                <p class="text-white px-2"><strong>Sheet mm: </strong>{{ item.sheet_mm }}</p>
+                <p class="text-white px-2"><strong>IP rating: </strong>{{ item.ip_rating }}</p>
 
                 {% if request.user == item.created_by %}
-                    <div class="mt-6 p-6 bg-white rounded-xl">
-                        <p>Posted by you</p>
+                    <div class="mt-6 p-6 bg-gray-900 rounded-xl">
+                        <p class="text-white">Posted by you</p>
                         <a href="{% url 'inventory:edit' item.id %}" class="inline-block mt-4 px-4 py-2 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-gray-500">Edit</a>
                         <a href="{% url 'inventory:delete' item.id %}" class="inline-block mt-4 px-4 py-2 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-gray-500">Delete</a>
                     </div>
                 {% else %}
-                    <button id="contact-seller" data-phone="NjM2MDM1MjAwNA==" data-item-name="{{ item.name }}" data-item-description="{{ item.description }}" data-item-meters="{{ item.meters }}" data-item-inches="{{ item.inches }}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-600 text-white rounded-xl hover:bg-gray-500 {% if not request.user.is_authenticated %}bg-gray-300 text-gray-600 cursor-not-allowed pointer-events-none{% endif %}" {% if not request.user.is_authenticated %}disabled{% endif %}>Contact Seller</button>
+                    <a href="{% url 'inventory:order' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-600 text-white rounded-xl hover:bg-gray-500 {% if not request.user.is_authenticated %}bg-gray-300 cursor-not-allowed pointer-events-none{% endif %}" {% if not request.user.is_authenticated %}disabled{% endif %}>Place order</a>    
+                
+                    <!-- button to rediret to whatsapp with product information -->
+                    <!-- <button id="contact-seller" data-phone="NjM2MDM1MjAwNA==" data-item-name="{{ item.name }}" data-item-description="{{ item.description }}" data-item-meters="{{ item.meters }}" data-item-inches="{{ item.inches }}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-600 text-white rounded-xl hover:bg-gray-500 {% if not request.user.is_authenticated %}bg-gray-300 text-gray-600 cursor-not-allowed pointer-events-none{% endif %}" {% if not request.user.is_authenticated %}disabled{% endif %}>Contact Seller</button> -->
                 {% endif %}
             </div>
         </div>
     </div>
 
     <!-- Related Items on the Right (2 Items per Column, 3 Columns) -->
-    <div class="col-span-1 sm:col-span-2 p-3 rounded-xl">
-        <h2 class="mb-12 text-2xl text-center">Related Items</h2>
+    <div class="col-span-1 sm:col-span-2 p-3 bg-gray-800 rounded-xl">
+        <h2 class="mb-12 text-2xl bg-gray-900 text-white p-2 rounded-lg text-center">Related Items</h2>
         <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto"> <!-- Show 2 items per column -->
             {% for item in related_items %}
-                <div class="mb-4">
+                <div class="shadow-md mb-4 bg-gray-900 ">
                     <a href="{% url 'inventory:detail' item.id %}">
                         <div>
-                            <img src="{{ item.image.url }}" class="rounded-xl" width="150" height="150">
+                            <img src="{{ item.image.url }}" class="" width="260" height="260">
                         </div>
-                        <div class="p-6 bg-white">
-                            <h2 class="text-xl">{{ item.name }}</h2>
+                        <div class="p-6 bg-gray-900 rounded-xl">
+                            <h2 class="text-xl text-white text-center bg-gray-900">{{ item.name }}</h2>
                         </div>
                     </a>
                 </div>

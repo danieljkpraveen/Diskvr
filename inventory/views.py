@@ -101,7 +101,11 @@ def edit(request, pk):
 
 
 @login_required
-def orders(request):
+def order(request, pk):
     # this view is to track orders made by customers
 
-    return render(request, 'inventory/orders.html')
+    if request.method == 'POST':
+        print(pk)
+        return render(request, 'inventory/orders.html')
+    else:
+        return render(request, 'inventory/orders.html')
