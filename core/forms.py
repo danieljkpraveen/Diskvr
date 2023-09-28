@@ -20,7 +20,7 @@ class SignUpForm(UserCreationForm):
         widget=forms.TextInput(
             attrs= {
                 'placeholder': 'Enter your Username',
-                'class': 'w-full py-4 px-6 rounded-xl',
+                'class': 'w-full py-4 px-6 rounded-xl text-black',
             }
         )
     )
@@ -29,7 +29,7 @@ class SignUpForm(UserCreationForm):
         widget=forms.TextInput(
             attrs= {
                 'placeholder': 'Enter phone number',
-                'class': 'w-full py-4 px-6 rounded-xl',
+                'class': 'w-full py-4 px-6 rounded-xl text-black',
             }
         )
     )
@@ -38,7 +38,7 @@ class SignUpForm(UserCreationForm):
         widget=forms.EmailInput(
             attrs= {
                 'placeholder': 'Provide your Email ID',
-                'class': 'w-full py-4 px-6 rounded-xl',
+                'class': 'w-full py-4 px-6 rounded-xl text-black',
             }
         )
     )
@@ -46,7 +46,7 @@ class SignUpForm(UserCreationForm):
         widget=forms.PasswordInput(
             attrs= {
                 'placeholder': 'Enter unique password',
-                'class': 'w-full py-4 px-6 rounded-xl',
+                'class': 'w-full py-4 px-6 rounded-xl text-black',
             }
         )
     )
@@ -54,7 +54,7 @@ class SignUpForm(UserCreationForm):
         widget=forms.PasswordInput(
             attrs= {
                 'placeholder': 'Repeat password for confirmation',
-                'class': 'w-full py-4 px-6 rounded-xl',
+                'class': 'w-full py-4 px-6 rounded-xl text-black',
             }
         )
     )
@@ -65,7 +65,7 @@ class LoginForm(AuthenticationForm):
         widget=forms.TextInput(
             attrs= {
                 'placeholder': 'Enter your Username',
-                'class': 'w-full py-4 px-6 rounded-xl',
+                'class': 'w-full py-4 px-6 rounded-xl text-black',
             }
         )
     )
@@ -73,7 +73,7 @@ class LoginForm(AuthenticationForm):
         widget=forms.PasswordInput(
             attrs= {
                 'placeholder': 'Enter your password',
-                'class': 'w-full py-4 px-6 rounded-xl',
+                'class': 'w-full py-4 px-6 rounded-xl text-black',
             }
         )
     )

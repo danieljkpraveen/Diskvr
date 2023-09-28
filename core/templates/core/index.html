@@ -3,26 +3,26 @@
 {% block title %}Welcome{% endblock %}
 
 {% block content %}
-    <div class="mt-6 px-3 py-6 bg-gray-200 rounded-xl">
+    <div class="mt-6 px-3 py-6 bg-gray-900 rounded-xl">
 
         {% if request.user.is_authenticated %}
             {% if request.user.is_superuser %}
                 <div class="text-center mb-4">
-                    <a href="{% url 'inventory:new' %}" class="text-lg font-semibold px-6 py-3 bg-white rounded-full inline-block">New item</a>
+                    <a href="{% url 'inventory:new' %}" class="text-lg font-semibold px-6 py-3 bg-blue-400 text-white rounded-full inline-block">New item</a>
                 </div>
             {% endif %}
         {% endif %}
 
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {% for item in items %}
-            <div class="shadow-md bg-white p-4 rounded-xl">
+            <div class="shadow-md bg-gray-800 p-4 rounded-xl">
                 <a href="{% url 'inventory:detail' item.id %}">
                     <div class="w-full h-48 sm:h-64">
                         <img src="{{ item.image.url }}" class="w-full h-full object-cover rounded-t-xl">
                     </div>
 
-                    <div class="p-4 bg-white rounded-b-xl">
-                        <h2 class="text-xl sm:text-xl">{{ item.name }}</h2>
+                    <div class="p-4 bg-gray-900 rounded-b-xl">
+                        <h2 class="text-xl text-white sm:text-xl">{{ item.name }}</h2>
                     </div>
                 </a>
             </div>
