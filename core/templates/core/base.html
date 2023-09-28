@@ -6,6 +6,7 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
   <title>{% block title %}{% endblock %} | Diskvr</title>
   <style>
+
     /* Custom styles for mobile optimization */
     @media (max-width: 640px) {
       .nav-links {
@@ -19,9 +20,9 @@
     }
   </style>
 </head>
-<body class="bg-gray-200">
+<body class="bg-gray-900">
 
-  <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-300 bg-white">
+  <nav class="py-6 px-6 flex justify-between text-white items-center border-b border-gray-800 bg-black">
     <a href="/" class="text-xl font-semibold hover:text-blue-500">Diskvr</a>
     <div class="space-x-6 md:hidden">
       <button id="mobileMenuButton" class="text-lg font-semibold">
@@ -48,7 +49,7 @@
     {% endblock %}
   </div>
 
-  <footer class="py-6 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between bg-gray-800 h-auto md:h-[120px]">
+  <footer class="py-6 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between bg-black h-auto md:h-[120px]">
     <div class="w-full md:w-1/2 mt-4 md:mt-0">
         <h3 class="mb-3 font-semibold text-white">Contacts</h3>
         <ul class="space-y-2">
@@ -90,8 +91,7 @@
             window.open(whatsappLink, '_blank');
         }
     });
-});
-
+    });
   </script>
 
 </body>

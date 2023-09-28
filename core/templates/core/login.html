@@ -3,28 +3,28 @@
 {% block title %}Log in{% endblock %}
 
 {% block content %}
-<div class="w-full my-6 px-4 bg-white shadow-md rounded-xl p-6">
-    <h1 class="mb-4 text-xl md:text-2xl text-center">Log in</h1>
+<div class="w-full my-6 px-4 bg-gray-800 shadow-md rounded-xl p-6">
+    <h1 class="mb-4 text-xl md:text-2xl text-center text-white">Log in</h1>
 
-    <form method="post" action=".">
+    <form method="post" action="." class="text-white">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
-        <div class="mb-4">
-            <label class="block mb-2">Username</label>
+        <div class="mb-4 bg-grey-900" >
+            <label class="block mb-2 text-white" >Username</label>
             {{ form.username }}
             {% if form.username.errors %}
-                <div class="mt-1 text-red-600">
+                <div class="mt-1">
                     {{ form.username.errors }}
                 </div>
             {% endif %}
         </div>
 
         <div class="mb-4">
-            <label class="block mb-2">Password</label>
+            <label class="block mb-2 text-white">Password</label>
             {{ form.password }}
             {% if form.password.errors %}
-                <div class="mt-1 text-red-600">
+                <div class="mt-1">
                     {{ form.password.errors }}
                 </div>
             {% endif %}
@@ -32,12 +32,12 @@
 
         <div class="flex justify-center p-2">
             {% if form.username.errors or form.password.errors or form.non_field_errors %}
-                <a href="{% url 'password_reset' %}" class="py-2 px-4 text-lg bg-gray-800 hover:bg-blue-500 rounded text-white">Reset password</a>
+                <a href="{% url 'password_reset' %}" class="py-2 px-4 text-lg bg-gray-700 hover:bg-blue-500 rounded text-white">Reset password</a>
             {% endif %}
         </div>
 
         <div class="flex justify-center">
-            <button class="py-2 px-4 text-lg bg-gray-800 hover:bg-blue-500 rounded text-white">
+            <button class="py-2 px-4 text-lg bg-gray-700 hover:bg-blue-500 rounded text-white">
                 Submit
             </button>
         </div>
