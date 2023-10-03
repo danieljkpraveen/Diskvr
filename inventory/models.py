@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class NeonLights(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     image = models.ImageField(upload_to='inventory_images', blank=True, null=True)
@@ -24,3 +25,16 @@ class NeonLights(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class Order(models.Model):
+    order_id = models.CharField(max_length=36, primary_key=True, editable=False)
+    product_name = models.CharField(max_length=255, editable=False)
+    product_image_path = models.CharField(max_length=255, editable=False)
+    username = models.CharField(max_length=150, editable=False)
+    email = models.EmailField(editable=False)
+    phone_number = models.CharField(max_length=15, editable=False)
+    complete = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.order_id
