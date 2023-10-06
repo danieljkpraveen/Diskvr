@@ -10,7 +10,7 @@
 
     <form action="{% url 'inventory:items' %}" method="get" class="mb-4 p-4 bg-gray-900">
 
-        <input name="query" class="w-full py-2 px-3 bg-gray-800 text-white" type="text" value="{{ query }}" placeholder="Search lights, services, etc!">
+        <input name="query" class="w-full py-2 px-3 bg-gray-800 text-white" type="text" value="{{ query }}" placeholder="Search by name">
         <button class="mt-2 py-2 px-3 text-base bg-blue-600 text-white rounded">Search</button>
         <a href="{% url 'inventory:items' %}" class="mt-2 p-2 inline-block bg-yellow-500 text-base rounded text-white">Clear</a>
 
