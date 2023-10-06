@@ -7,6 +7,8 @@ from core.models import UserProfile
 from .models import NeonLights, Order
 from .forms import EditItemForm, NewItemForm
 
+from .utils import orders_list_data
+
 
 def detail(request, pk):
     # this view is for the details page
@@ -30,7 +32,9 @@ def items(request):
     items = NeonLights.objects.all()
 
     if query:
-        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        items = items.filter(
+            Q(name__icontains=query) | Q(description__icontains=query)
+        )
 
     return render(
         request,
@@ -72,7 +76,11 @@ def new(request):
 def delete(request, pk):
     # this view is to delete item
 
-    item = get_object_or_404(NeonLights, pk=pk, created_by=request.user)
+    item = get_object_or_404(
+        NeonLights,
+        pk=pk,
+        created_by=request.user
+    )
     item.delete()
     return redirect('/')
 
@@ -81,9 +89,17 @@ def delete(request, pk):
 def edit(request, pk):
     # this view is to edit item
 
-    item = get_object_or_404(NeonLights, pk=pk, created_by=request.user)
+    item = get_object_or_404(
+        NeonLights,
+        pk=pk,
+        created_by=request.user
+    )
     if request.method == 'POST':
-        form = EditItemForm(request.POST, request.FILES, instance=item)
+        form = EditItemForm(
+            request.POST,
+            request.FILES,
+            instance=item
+        )
         
         if form.is_valid():
             form.save()
@@ -118,6 +134,7 @@ def order(request, pk):
 
     return_data = {
         'order_id': order_id,
+        'product_id': pk,
         'product_name': product_name,
         'product_image_path': product_image_path,
         'username': username,
@@ -134,7 +151,11 @@ def order(request, pk):
         phone_number=phone_no
     )
 
-    return render(request, 'inventory/order.html', {'order': return_data})
+    return render(
+        request,
+        'inventory/order.html',
+        {'order': return_data}
+    )
 
 
 @login_required
@@ -142,26 +163,28 @@ def order_list(request):
     # this view is to track orders made by customers
 
     user = request.user
-    completed_orders = None
-    working_orders = None
-    client_orders = None
 
-    if user.is_superuser:
-        completed_orders = Order.objects.filter(complete=True)
-        working_orders = Order.objects.filter(complete=False)
-    else:
-        client_orders = Order.objects.filter(username=user.username, complete=False)
+    return_data = orders_list_data(user)
 
-    return_data = {}
-    if completed_orders:
-        return_data['completed_orders'] = completed_orders
-    if working_orders:
-        return_data['working_orders'] = working_orders
-    if client_orders:
-        return_data['client_orders'] = client_orders
+    if request.method == 'POST':
+        checkbox_value = request.POST.get('myCheckbox')
+        completed_order_id = request.POST.get('order_id')
+
+        if checkbox_value == 'checked':
+            completed_order = Order.objects.get(pk=completed_order_id)
+            completed_order.complete = True
+            completed_order.save()
+
+            return_data = orders_list_data(user)
+
+            return render(
+                request,
+                'inventory/orders_list.html',
+                {'orders': return_data}
+            )
 
     return render(
-        request, 
+        request,
         'inventory/orders_list.html',
         {'orders': return_data}
     )

@@ -3,27 +3,58 @@
 {% block title %}Orders{% endblock %}
 
 {% block content %}
-<div class="mt-6 p-6 bg-white shadow-md rounded-xl">
-    {% for order in orders %}
-    <div class="flex">
-        <div class="flex-1 pl-5">
-            <p style="color: rgb(0, 0, 0);">Product id</p>
-        </div>
-        <div class="flex-1 w-64">
-            <p style="color: rgb(0, 0, 0);">Product Name</p>
-        </div>
-        <div class="flex-1 w-25">
-            <p style="color: rgb(0, 0, 0);">Finalize Order</p>
-            <label for="yes{{ order.id }}" class="inline-flex items-center">
-                <input type="checkbox" id="yes{{ order.id }}" name="finalize{{ order.id }}" value="yes" class="form-checkbox rounded-lg text-black-500 border-black-400">
-                <span class="ml-2 text-black">Yes</span>
-            </label>
-            <label for="no{{ order.id }}" class="inline-flex items-center">
-                <input type="checkbox" id="no{{ order.id }}" name="finalize{{ order.id }}" value="no" class="form-checkbox rounded-lg text-black-500 border-black-400">
-                <span class="ml-2 text-black">No</span>
-            </label>
-        </div>
-    </div>
-    {% endfor %}
-</div>
+    {% if request.user.is_authenticated %}
+
+        {% if request.user.is_superuser %}
+
+            <!-- {{ orders.working_orders }} -->
+            {% for order in orders.working_orders %}
+            <div class="flex flex-col md:flex-row bg-gray-800 text-white m-4 p-4 rounded-xl items-center">
+                <div class="flex-1 mb-4 md:mb-0 text-center">
+                    <p class="text-blue-500">Order ID</p>
+                    <p>{{ order.order_id }}</p>
+                </div>
+                <div class="flex-1 mb-4 md:mb-0 text-center">
+                    <p class="text-blue-500">Product name</p>
+                    <p>{{ order.product_name }}</p>
+                </div>
+                <div class="flex-1 mb-4 md:mb-0 text-center">
+                    <p class="text-blue-500">Phone number</p>
+                    <p>{{ order.phone_number }}</p>
+                </div>
+                <div class="flex-1 text-center">
+                    <img src="{{ MEDIA_URL }}{{ order.product_image_path }}" class="w-32 h-32 object-cover mx-auto">
+                </div>
+                <div class="flex-1 mt-4">
+                    <form method="POST" id="myForm{{ order.order_id }}">
+                        {% csrf_token %}
+                        <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                        <input type="checkbox" id="myCheckbox{{ order.order_id }}" name="myCheckbox" value="checked">
+                        <label for="myCheckbox{{ order.order_id }}">Close order</label><br>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+
+        {% else %}
+
+            {% for order in orders.client_orders %}
+            <div class="flex flex-col md:flex-row bg-gray-800 text-white m-4 p-4 rounded-xl items-center">
+                <div class="flex-1 mb-4 md:mb-0 text-center">
+                    <p>Order ID</p>
+                    <p>{{ order.order_id }}</p>
+                </div>
+                <div class="flex-1 mb-4 md:mb-0 text-center">
+                    <p>Product Name</p>
+                    <p>{{ order.product_name }}</p>
+                </div>
+                <div class="flex-1 text-center">
+                    <img src="{{ MEDIA_URL }}{{ order.product_image_path }}" class="w-32 h-32 object-cover mx-auto">
+                </div>
+            </div>
+            {% endfor %}
+
+        {% endif %}
+
+    {% endif %}
 {% endblock %}

@@ -4,8 +4,26 @@
 
 {% block content %}
 
-    <div class="mt-6 p-6 bg-white shadow-md rounded-xl">
-        Currently under development, sorry for the inconvenience
+    <div class="mt-6 p-6 bg-gray-800 shadow-md rounded-xl text-white">
+        <center><p>Order ID has been generated, please contact the seller via WhatsApp</p></center>
+        <br><br><hr><br><br>
+        <div class="bg-gray-900 rounded-xl p-4">
+            <br>Order ID: {{ order.order_id }}<br><br>
+            Product Name: {{ order.product_name }}<br><br>
+            Username: {{ order.username }}<br><br>
+            Email: {{ order.email }}<br><br>
+            Phone number: {{ order.phone_no }}<br><br>
+        </div><br>
+            <center>
+                <button 
+                id="contact-seller"
+                data-phone="NjM2MDM1MjAwNA=="
+                data-item-id="{{ order.product_id }}"
+                data-item-name="{{ order.product_name }}"
+                data-item-order="{{ order.order_id }}"
+                data-item-username="{{ order.username }}"
+                data-item-email="{{ order.email }}"
+                class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-600 text-white rounded-xl hover:bg-gray-500 {% if not request.user.is_authenticated %}bg-gray-300 text-gray-600 cursor-not-allowed pointer-events-none{% endif %}" {% if not request.user.is_authenticated %}disabled{% endif %}>Contact Seller</button></center>
     </div>
 
 {% endblock %}
