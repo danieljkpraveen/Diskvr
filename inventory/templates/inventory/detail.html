@@ -36,7 +36,11 @@
                     </div>
                 {% else %}
                     <a href="{% url 'inventory:order' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-600 text-white rounded-xl hover:bg-gray-500 {% if not request.user.is_authenticated %}bg-gray-300 cursor-not-allowed pointer-events-none{% endif %}" {% if not request.user.is_authenticated %}disabled{% endif %}>Place order</a>    
-                
+                    {% if not request.user.is_authenticated %}
+                        <a href="{% url 'login' %}" class="mt-2 inline-block p-3 text-lg font-semibold text-white bg-red-700 rounded-xl">log in to place order</a>
+                    {% endif %}
+
+
                     <!-- button to rediret to whatsapp with product information -->
                     <!-- <button id="contact-seller" data-phone="NjM2MDM1MjAwNA==" data-item-name="{{ item.name }}" data-item-description="{{ item.description }}" data-item-meters="{{ item.meters }}" data-item-inches="{{ item.inches }}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-600 text-white rounded-xl hover:bg-gray-500 {% if not request.user.is_authenticated %}bg-gray-300 text-gray-600 cursor-not-allowed pointer-events-none{% endif %}" {% if not request.user.is_authenticated %}disabled{% endif %}>Contact Seller</button> -->
                 {% endif %}

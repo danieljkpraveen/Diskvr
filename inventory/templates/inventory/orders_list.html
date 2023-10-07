@@ -41,11 +41,11 @@
             {% for order in orders.client_orders %}
             <div class="flex flex-col md:flex-row bg-gray-800 text-white m-4 p-4 rounded-xl items-center">
                 <div class="flex-1 mb-4 md:mb-0 text-center">
-                    <p>Order ID</p>
+                    <p class="text-blue-500">Order ID</p>
                     <p>{{ order.order_id }}</p>
                 </div>
                 <div class="flex-1 mb-4 md:mb-0 text-center">
-                    <p>Product Name</p>
+                    <p class="text-blue-500">Name</p>
                     <p>{{ order.product_name }}</p>
                 </div>
                 <div class="flex-1 text-center">
