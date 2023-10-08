@@ -182,6 +182,19 @@ def order_list(request):
                 'inventory/orders_list.html',
                 {'orders': return_data}
             )
+    
+        if checkbox_value is None:
+            completed_order = Order.objects.get(pk=completed_order_id)
+            completed_order.complete = False
+            completed_order.save()
+
+            return_data = orders_list_data(user)
+
+            return render(
+                request,
+                'inventory/orders_list.html',
+                {'orders': return_data}
+            )
 
     return render(
         request,

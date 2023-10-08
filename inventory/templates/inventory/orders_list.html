@@ -7,7 +7,44 @@
 
         {% if request.user.is_superuser %}
 
-            <!-- {{ orders.working_orders }} -->
+            <div class="text-center">
+                <button id="myButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Closed orders
+                </button>
+                <div id="myMessage" class="hidden bg-gray-800 text-black shadow-md p-4 rounded-xl mx-auto relative">
+                    <button id="closeButton" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded absolute right-0 top-0 m-2">
+                        X
+                    </button>
+                    {% for order in orders.completed_orders %}
+                    <div class="flex flex-col md:flex-row bg-gray-900 text-white m-4 p-4 rounded-xl items-center">
+                        <div class="flex-1 mb-4 md:mb-0 text-center">
+                            <p class="text-blue-500">Order ID</p>
+                            <p>{{ order.order_id }}</p>
+                        </div>
+                        <div class="flex-1 mb-4 md:mb-0 text-center">
+                            <p class="text-blue-500">Product name</p>
+                            <p>{{ order.product_name }}</p>
+                        </div>
+                        <div class="flex-1 mb-4 md:mb-0 text-center">
+                            <p class="text-blue-500">Phone number</p>
+                            <p>{{ order.phone_number }}</p>
+                        </div>
+                        <div class="flex-1 text-center">
+                            <img src="{{ MEDIA_URL }}{{ order.product_image_path }}" class="w-32 h-32 object-cover mx-auto">
+                        </div>
+                        <div class="flex-1 mt-4">
+                            <form method="POST" id="myForm{{ order.order_id }}">
+                                {% csrf_token %}
+                                <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                                <input type="checkbox" id="myCheckbox2{{ order.order_id }}" name="myCheckbox2" value="checked" checked>
+                                <label for="myCheckbox2{{ order.order_id }}">Close order</label><br>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
             {% for order in orders.working_orders %}
             <div class="flex flex-col md:flex-row bg-gray-800 text-white m-4 p-4 rounded-xl items-center">
                 <div class="flex-1 mb-4 md:mb-0 text-center">

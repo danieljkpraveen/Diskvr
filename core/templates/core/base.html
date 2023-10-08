@@ -107,6 +107,26 @@
       });
       {% endfor %}
     });
+
+    // open closed order
+    document.addEventListener('DOMContentLoaded', function() {
+      {% for order in orders.completed_orders %}
+      document.getElementById('myCheckbox2{{ order.order_id }}').addEventListener('change', function() {
+          if(!this.checked) {
+              document.getElementById('myForm{{ order.order_id }}').submit();
+          }
+      });
+      {% endfor %}
+    });
+
+    // div pop up
+    document.getElementById('myButton').addEventListener('click', function() {
+        document.getElementById('myMessage').style.display = 'block';
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('myMessage').style.display = 'none';
+    });
   </script>
 
 </body>
