@@ -7,6 +7,7 @@ class NeonLights(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     image = models.ImageField(upload_to='inventory_images', blank=True, null=True)
     name = models.CharField(max_length=255)
+    price = models.FloatField(blank=True, null=True)
     inches = models.CharField(max_length=255)
     ip_rating = models.CharField(max_length=150, blank=True, null=True)
     led_lights_used = models.IntegerField(blank=True, null=True)
@@ -30,6 +31,7 @@ class NeonLights(models.Model):
 class Order(models.Model):
     order_id = models.CharField(max_length=36, primary_key=True, editable=False)
     product_name = models.CharField(max_length=255, editable=False)
+    price = models.FloatField(null=True, blank=True)
     product_image_path = models.CharField(max_length=255, editable=False)
     username = models.CharField(max_length=150, editable=False)
     email = models.EmailField(editable=False)

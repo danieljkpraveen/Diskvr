@@ -76,6 +76,7 @@
     contactButton.addEventListener('click', function() {
         if (phoneNumber) {
             const itemName = contactButton.getAttribute('data-item-name');
+            const itemPrice = contactButton.getAttribute('data-item-price');
             const itemID = contactButton.getAttribute('data-item-id');
             const itemOrder = contactButton.getAttribute('data-item-order');
             const itemUsername = contactButton.getAttribute('data-item-username');
@@ -88,6 +89,7 @@
             // const message = `Hi, I'm interested in the ${itemName}. Item Description: ${itemDescription} Meters: ${itemMeters} Inches: ${itemInches} Page URL: ${currentPageUrl}`;
             const message = `Hi, order placed for ${itemName}.\n\n` +
                                 `Order ID: ${itemOrder}\n\n` +
+                                `Price(₹): ${itemPrice}\n\n` +
                                 `Username: ${itemUsername}\n\n` +
                                 `Email: ${itemEmail}\n\n` +
                                 `Page URL: ${fullPath}`;

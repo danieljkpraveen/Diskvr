@@ -120,13 +120,14 @@ def edit(request, pk):
 
 @login_required
 def order(request, pk):
-    # this view is to generate order id for new orders
+    # this view is to generate order id and create new orders
 
     product = NeonLights.objects.get(id=pk)
     user_profile = UserProfile.objects.get(user=request.user)
     
     order_id = timezone.now().strftime("%m%d%Y%H%M%S%f")
     product_name = product.name
+    product_price = product.price
     product_image_path = str(product.image)
     username = request.user.username
     email = request.user.email
@@ -136,6 +137,7 @@ def order(request, pk):
         'order_id': order_id,
         'product_id': pk,
         'product_name': product_name,
+        'product_price': product_price,
         'product_image_path': product_image_path,
         'username': username,
         'email': email,
@@ -145,6 +147,7 @@ def order(request, pk):
     Order.objects.create(
         order_id=order_id,
         product_name=product_name,
+        price=product_price,
         product_image_path=product_image_path,
         username=username,
         email=email,

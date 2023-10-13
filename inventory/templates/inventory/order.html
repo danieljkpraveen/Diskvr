@@ -10,6 +10,7 @@
         <div class="bg-gray-900 rounded-xl p-4">
             <br>Order ID: {{ order.order_id }}<br><br>
             Product Name: {{ order.product_name }}<br><br>
+            Price(&#8377;): {{ order.product_price }}<br><br>
             Username: {{ order.username }}<br><br>
             Email: {{ order.email }}<br><br>
             Phone number: {{ order.phone_no }}<br><br>
@@ -20,6 +21,7 @@
                 data-phone="NjM2MDM1MjAwNA=="
                 data-item-id="{{ order.product_id }}"
                 data-item-name="{{ order.product_name }}"
+                data-item-price="{{ order.product_price }}"
                 data-item-order="{{ order.order_id }}"
                 data-item-username="{{ order.username }}"
                 data-item-email="{{ order.email }}"

@@ -11,6 +11,7 @@ class NewItemForm(forms.ModelForm):
         fields = (
             "image",
             "name",
+            "price",
             "description",
             "inches",
             "ip_rating",
@@ -20,6 +21,7 @@ class NewItemForm(forms.ModelForm):
         widgets = {
             "image": forms.FileInput(attrs={"class": INPUT_CLASSES}),
             "name": forms.TextInput(attrs={"class": INPUT_CLASSES}),
+            "price": forms.NumberInput(attrs={"class": INPUT_CLASSES}),
             "description": forms.Textarea(attrs={"class": INPUT_CLASSES}),
             "inches": forms.TextInput(attrs={"class": INPUT_CLASSES}),
             "ip_rating": forms.TextInput(attrs={"class": INPUT_CLASSES}),
@@ -34,6 +36,7 @@ class EditItemForm(forms.ModelForm):
         fields = (
             "image",
             "name",
+            "price",
             "description",
             "inches",
             "ip_rating",
@@ -43,6 +46,7 @@ class EditItemForm(forms.ModelForm):
         widgets = {
             "image": forms.FileInput(attrs={"class": INPUT_CLASSES}),
             "name": forms.TextInput(attrs={"class": INPUT_CLASSES}),
+            "price": forms.NumberInput(attrs={"class": INPUT_CLASSES}),
             "description": forms.Textarea(attrs={"class": INPUT_CLASSES}),
             "inches": forms.TextInput(attrs={"class": INPUT_CLASSES}),
             "ip_rating": forms.TextInput(attrs={"class": INPUT_CLASSES}),
