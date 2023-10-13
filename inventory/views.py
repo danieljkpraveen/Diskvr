@@ -7,7 +7,7 @@ from core.models import UserProfile
 from .models import NeonLights, Order
 from .forms import EditItemForm, NewItemForm
 
-from .utils import orders_list_data
+from .utils import orders_list_data, closed_orders
 
 
 def detail(request, pk):
@@ -182,22 +182,41 @@ def order_list(request):
                 'inventory/orders_list.html',
                 {'orders': return_data}
             )
-    
+
+    return render(
+        request,
+        'inventory/orders_list.html',
+        {'orders': return_data}
+    )
+
+
+@login_required
+def completed_orders(request):
+    # this view is to get completed orders
+
+    user = request.user
+
+    return_data = closed_orders(user)
+
+    if request.method == 'POST':
+        checkbox_value = request.POST.get('myCheckbox')
+        completed_order_id = request.POST.get('order_id')
+
         if checkbox_value is None:
             completed_order = Order.objects.get(pk=completed_order_id)
             completed_order.complete = False
             completed_order.save()
 
-            return_data = orders_list_data(user)
+            return_data = closed_orders(user)
 
             return render(
                 request,
-                'inventory/orders_list.html',
+                'inventory/closed_orders.html',
                 {'orders': return_data}
             )
 
     return render(
         request,
-        'inventory/orders_list.html',
+        'inventory/closed_orders.html',
         {'orders': return_data}
     )

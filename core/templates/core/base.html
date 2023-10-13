@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:;base64,=">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
   <title>{% block title %}{% endblock %} | neon_createslove</title>
   <style>
@@ -110,22 +111,13 @@
 
     // open closed order
     document.addEventListener('DOMContentLoaded', function() {
-      {% for order in orders.completed_orders %}
-      document.getElementById('myCheckbox2{{ order.order_id }}').addEventListener('change', function() {
+      {% for order in orders %}
+      document.getElementById('myCheckbox{{ order.order_id }}').addEventListener('change', function() {
           if(!this.checked) {
               document.getElementById('myForm{{ order.order_id }}').submit();
           }
       });
       {% endfor %}
-    });
-
-    // div pop up
-    document.getElementById('myButton').addEventListener('click', function() {
-        document.getElementById('myMessage').style.display = 'block';
-    });
-
-    document.getElementById('closeButton').addEventListener('click', function() {
-        document.getElementById('myMessage').style.display = 'none';
     });
   </script>
 
