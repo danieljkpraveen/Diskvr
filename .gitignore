@@ -165,3 +165,5 @@ settings_old.py.txt
 
 migrate.bat
 runserver.bat
+
+.vscode/
