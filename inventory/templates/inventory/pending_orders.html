@@ -1,19 +1,11 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Orders{% endblock %}
+{% block title %}Pending orders{% endblock %}
 
 {% block content %}
     {% if request.user.is_authenticated %}
 
-        <div class="text-center mb-4">
-            <a href="{% url 'inventory:closed_orders' %}" class="text-lg font-semibold px-6 py-3 bg-blue-400 text-white rounded-full inline-block">Closed orders</a>
-        </div>
-
         {% if request.user.is_superuser %}
-
-            <div class="text-center mb-4">
-                <a href="{% url 'inventory:unaccepted_orders' %}" class="text-lg font-semibold px-6 py-3 bg-blue-400 text-white rounded-full inline-block">Pending orders</a>
-            </div>
 
             {% for order in orders %}
             <div class="flex flex-col md:flex-row bg-gray-800 text-white m-4 p-4 rounded-xl items-center">
@@ -46,29 +38,8 @@
             </div>
             {% endfor %}
 
-        {% else %}
-
-            {% for order in orders %}
-            <div class="flex flex-col md:flex-row bg-gray-800 text-white m-4 p-4 rounded-xl items-center">
-                <div class="flex-1 mb-4 md:mb-0 text-center">
-                    <p class="text-blue-500">Order ID</p>
-                    <p>{{ order.order_id }}</p>
-                </div>
-                <div class="flex-1 mb-4 md:mb-0 text-center">
-                    <p class="text-blue-500">Name</p>
-                    <p>{{ order.product_name }}</p>
-                </div>
-                <div class="flex-1 mb-4 md:mb-0 text-center">
-                    <p class="text-blue-500">Status</p>
-                    <p>{{ order.get_status_display }}</p>
-                </div>
-                <div class="flex-1 text-center">
-                    <img src="{{ MEDIA_URL }}{{ order.product_image_path }}" class="w-32 h-32 object-cover mx-auto">
-                </div>
-            </div>
-            {% endfor %}
-
         {% endif %}
 
     {% endif %}
+
 {% endblock %}

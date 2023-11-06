@@ -6,8 +6,7 @@ from django.utils import timezone
 from core.models import UserProfile
 from .models import NeonLights, Order
 from .forms import EditItemForm, NewItemForm
-
-from .utils import orders_list_data, closed_orders
+from . import utils
 
 
 def detail(request, pk):
@@ -141,7 +140,8 @@ def order(request, pk):
         'product_image_path': product_image_path,
         'username': username,
         'email': email,
-        'phone_no': phone_no
+        'phone_no': phone_no,
+        'status': 'Not accepted'
     }
 
     Order.objects.create(
@@ -151,7 +151,8 @@ def order(request, pk):
         product_image_path=product_image_path,
         username=username,
         email=email,
-        phone_number=phone_no
+        phone_number=phone_no,
+        status='NA'
     )
 
     return render(
@@ -166,25 +167,23 @@ def order_list(request):
     # this view is to track orders made by customers
 
     user = request.user
-
-    return_data = orders_list_data(user)
+    return_data = utils.orders_list_data(user)
 
     if request.method == 'POST':
-        checkbox_value = request.POST.get('myCheckbox')
-        completed_order_id = request.POST.get('order_id')
+        new_status = request.POST.get('status')
+        updated_order_id = request.POST.get('order_id')
 
-        if checkbox_value == 'checked':
-            completed_order = Order.objects.get(pk=completed_order_id)
-            completed_order.complete = True
-            completed_order.save()
+        updated_order = Order.objects.get(pk=updated_order_id)
+        updated_order.status = new_status
+        updated_order.save()
 
-            return_data = orders_list_data(user)
+        return_data = utils.orders_list_data(user)
 
-            return render(
-                request,
-                'inventory/orders_list.html',
-                {'orders': return_data}
-            )
+        return render(
+            request,
+            'inventory/orders_list.html',
+            {'orders': return_data}
+        )
 
     return render(
         request,
@@ -194,27 +193,55 @@ def order_list(request):
 
 
 @login_required
+def unaccepted_orders(request):
+    # This view is to get a list of all pending orders
+
+    user = request.user
+    return_data = utils.pending_orders(user)
+
+    if request.method == 'POST':
+        new_status = request.POST.get('status')
+        updated_order_id = request.POST.get('order_id')
+
+        updated_order = Order.objects.get(pk=updated_order_id)
+        updated_order.status = new_status
+        updated_order.save()
+
+        return_data = utils.pending_orders(user)
+
+        return render(
+            request,
+            'inventory/pending_orders.html',
+            {'orders': return_data}
+        )
+
+    return render(
+        request,
+        'inventory/pending_orders.html',
+        {'orders': return_data}
+    )
+
+
+@login_required
 def completed_orders(request):
     # this view is to get completed orders
 
     user = request.user
-
-    return_data = closed_orders(user)
+    return_data = utils.closed_orders(user)
 
     if request.method == 'POST':
-        checkbox_value = request.POST.get('myCheckbox')
-        completed_order_id = request.POST.get('order_id')
+            new_status = request.POST.get('status')
+            updated_order_id = request.POST.get('order_id')
 
-        if checkbox_value is None:
-            completed_order = Order.objects.get(pk=completed_order_id)
-            completed_order.complete = False
-            completed_order.save()
+            updated_order = Order.objects.get(pk=updated_order_id)
+            updated_order.status = new_status
+            updated_order.save()
 
-            return_data = closed_orders(user)
+            return_data = utils.closed_orders(user)
 
             return render(
                 request,
-                'inventory/closed_orders.html',
+                'inventory/pending_orders.html',
                 {'orders': return_data}
             )
 

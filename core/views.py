@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.template import RequestContext
 
 from inventory.models import NeonLights
 from .forms import SignUpForm
@@ -35,3 +36,14 @@ def signup(request):
         'core/signup.html',
         {'form': form, 'errors': errors}
     )
+
+
+def handler404(request, exception):
+    response = render(
+        request,
+        'core/404.html',
+        {}
+    )
+    response.status_code = 404
+
+    return response

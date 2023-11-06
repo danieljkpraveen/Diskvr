@@ -6,6 +6,7 @@ from . import views
 
 
 # app_name = 'core'
+handler404 = 'core.views.handler404'
 
 urlpatterns = [
     path('', views.index, name='index'),

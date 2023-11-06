@@ -8,6 +8,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor_uploader',
 ]
 
 PACKAGE_APPS = [

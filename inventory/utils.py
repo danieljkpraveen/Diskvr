@@ -2,43 +2,47 @@ from .models import Order
 
 
 def orders_list_data(user):
-    working_orders = None
-    client_orders = None
+    return_data = None
 
     if user.is_superuser:
-        working_orders = Order.objects.filter(
-            complete=False
+        return_data = Order.objects.filter(
+            status='IP'
         ).order_by('-order_id')
     else:
-        client_orders = Order.objects.filter(
+        return_data = Order.objects.filter(
             username=user.username,
-            complete=False
+            status__in=['IP', 'NA']
         ).order_by('-order_id')
 
-    return_data = {}
-    if working_orders:
-        return_data['working_orders'] = working_orders
-    if client_orders:
-        return_data['client_orders'] = client_orders
+    return return_data
+
+
+def pending_orders(user):
+    return_data = None
+
+    if user.is_superuser:
+        return_data = Order.objects.filter(
+            status='NA'
+        ).order_by('-order_id')
     
     return return_data
 
 
 def closed_orders(user):
-    closed_orders_data = None
+    completed_orders = None
 
     # below code is to view attributes of an object
     # attributes = dir(user)
     # print(attributes)
 
     if user.is_superuser:
-        closed_orders_data = Order.objects.filter(
-            complete=True
+        completed_orders = Order.objects.filter(
+            status='CO'
         ).order_by('-order_id')
     else:
-        closed_orders_data = Order.objects.filter(
+        completed_orders = Order.objects.filter(
             username=user.username,
-            complete=True
+            status='CO'
         ).order_by('-order_id')
     
-    return closed_orders_data
+    return completed_orders

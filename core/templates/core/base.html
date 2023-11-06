@@ -100,17 +100,6 @@
     });
     });
 
-    // Close order on check functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      {% for order in orders.working_orders %}
-      document.getElementById('myCheckbox{{ order.order_id }}').addEventListener('change', function() {
-          if(this.checked) {
-              document.getElementById('myForm{{ order.order_id }}').submit();
-          }
-      });
-      {% endfor %}
-    });
-
     // open closed order
     document.addEventListener('DOMContentLoaded', function() {
       {% for order in orders %}
